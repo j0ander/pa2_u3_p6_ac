@@ -6,8 +6,6 @@ import ec.com.uce.application.service.FacturaService;
 import ec.com.uce.application.service.MailService;
 import ec.com.uce.application.service.ReporteService;
 import ec.com.uce.domain.model.Factura;
-import ec.com.uce.domain.model.Mail;
-import ec.com.uce.domain.model.Reporte;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -21,7 +19,7 @@ public class Main {
     }
 
     public static class App implements QuarkusApplication {
-        
+
         @Inject
         private FacturaService fs;
 
@@ -33,28 +31,16 @@ public class Main {
 
         @Override
         public int run(String... args) {
-            System.out.println("--- PRUEBA DE NUEVO PROYECTO ---");
-            
-            // 2.  Mail
-            Mail m1 = new Mail();
-            m1.setDe("anderson@uce.edu.ec");
-            m1.setPara("destinatario@uce.edu.ec");
-            m1.setAsunto("Reporte Mensual");
-            m1.setCuerpo("Adjunto el reporte solicitado del mes actual.");
-            this.ms.guardar(m1);
+            String nombreHilo = Thread.currentThread().getName();
+            System.out.println("nombre del hilo Main: " + nombreHilo);
+            System.out.println("ID: " + Thread.currentThread().threadId());
+            Factura f1 = new Factura();
+            f1.setFecha(LocalDate.of(2026, 10, 1));
+            f1.setNumero("0001-003");
+            f1.setRuc("1082398721936");
+            this.fs.guardar(f1);
+            // System.out.println(this.fs.buscarPorId(1).getNumero());
 
-            System.out.println("Mail recuperado (Asunto): " + this.ms.buscarPorId(1).getAsunto());
-
-            // 3.  Reporte
-            Reporte r1 = new Reporte();
-            r1.setTitulo("Reporte de Ventas Octubre");
-            r1.setAutor("Admin UCE");
-            r1.setFechaCreacion(LocalDate.now());
-            r1.setFormato("PDF");
-            this.rs.guardar(r1);
-
-            System.out.println("Reporte recuperado (Título): " + this.rs.buscarPorId(1).getTitulo());
-            
             return 0;
         }
     }
