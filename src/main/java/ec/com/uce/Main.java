@@ -1,7 +1,6 @@
 package ec.com.uce;
 
 import ec.com.uce.application.service.FacturaService;
-import ec.com.uce.domain.model.Factura;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -21,7 +20,7 @@ public class Main {
         @Override
         public int run(String... args) {
             System.out.println("PRUEBA DE NUEVO PROYECTO");
-            Factura f1 = new Factura();
+            //Factura f1 = new Factura();
           
             //this.fs.guardar(f1);
 
