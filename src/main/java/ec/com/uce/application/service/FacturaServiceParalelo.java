@@ -23,9 +23,14 @@ public class FacturaServiceParalelo {
 
     @Inject
     private ReporteService rs;
+    @Inject
+    private ReporteServiceTarea reporteServiceTarea;
 
     @Inject
     private MailService ms;
+    @Inject
+    private MailServiceTarea mailServiceTarea;
+
     @Tiempo
     public void guardar(Factura factura) {
         String nombreHilo = Thread.currentThread().getName();
@@ -41,27 +46,27 @@ public class FacturaServiceParalelo {
         r.setFechaCreacion(LocalDate.now());
         r.setFormato("formato");
         r.setTitulo("titulo");
-        ReporteServiceTarea reporteServiceTarea = new ReporteServiceTarea(r, rs);
+        // ReporteServiceTarea reporteServiceTarea = new ReporteServiceTarea(r, rs);
+        this.reporteServiceTarea.setReporte(r);
         Future<?> reporteFuture = executorService.submit(reporteServiceTarea);
-
-
 
         Mail m = new Mail();
         m.setAsunto("asunto");
         m.setCuerpo("cuerpo");
         m.setDe("Anderson");
         m.setPara("para");
-        MailServiceTarea mailServiceTarea = new MailServiceTarea(m, ms);
+        //MailServiceTarea mailServiceTarea = new MailServiceTarea(m, ms);
+        this.mailServiceTarea.setMail(m);
         Future<?> mailFuture = executorService.submit(mailServiceTarea);
         // cerrar el proceso de ejecucion indicando que no voy a enviar mas tareas
-        
+
         try {
-            Thread.sleep(2000);
-           // reporteFuture.get();
-          //  mailFuture.get();
-            
+            // Thread.sleep(2000);
+            reporteFuture.get();
+            mailFuture.get();
+
         } catch (Exception e) {
-            
+
         }
         executorService.shutdown();
     }

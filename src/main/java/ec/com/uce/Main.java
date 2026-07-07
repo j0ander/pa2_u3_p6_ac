@@ -2,7 +2,7 @@ package ec.com.uce;
 
 import java.time.LocalDate;
 
-import ec.com.uce.application.service.FacturaServiceParalelo;
+import ec.com.uce.application.service.FacturaServiceCompletaFuture;
 import ec.com.uce.domain.model.Factura;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
@@ -19,7 +19,7 @@ public class Main {
     public static class App implements QuarkusApplication {
 
         @Inject
-        private FacturaServiceParalelo fsp;
+        private FacturaServiceCompletaFuture fsp;
 
 
         @Override
