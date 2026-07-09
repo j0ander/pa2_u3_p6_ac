@@ -1,7 +1,11 @@
 package ec.com.uce;
 
-import ec.com.uce.application.service.EstudianteService;
-import ec.com.uce.domain.model.Estudiante;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import ec.com.uce.application.service.ReporteService;
+import ec.com.uce.domain.model.Reporte;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -17,25 +21,24 @@ public class Main {
     public static class App implements QuarkusApplication {
 
         @Inject
-        private EstudianteService estudianteService;
+        private ReporteService rs;
 
         @Override
         public int run(String... args) throws Exception {
-
-            Estudiante estudiante = new Estudiante();
-            estudiante.setNombre("Anderson");
-            estudiante.setApellido("Chancusi");
-
-            estudianteService.guardar(estudiante);
-
-            Estudiante estudiante1 = new Estudiante();
-            estudiante1.setId(17);
-            estudiante1.setNombre("anderson joel");
+            List<Reporte> lista = new ArrayList<>();
             
-            estudianteService.actualizar(estudiante1);
-
-
-            estudianteService.borrar(18);
+            for(int i = 0; i<10; i++){
+                Reporte r2 = new Reporte();
+                r2.setTitulo("ANDERSON" + i);
+                r2.setAutor("autor");
+                r2.setFechaCreacion(LocalDate.now());
+                r2.setFormato("a");
+                lista.add(r2);
+            }
+            
+            this.rs.guardarListaReportes(lista);
+           
+            
             return 0;
         }
     }

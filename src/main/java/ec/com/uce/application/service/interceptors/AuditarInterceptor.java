@@ -1,7 +1,6 @@
 package ec.com.uce.application.service.interceptors;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 
 import ec.com.uce.application.service.AuditoriaService;
 import ec.com.uce.domain.model.Auditoria;
@@ -33,7 +32,7 @@ public class AuditarInterceptor {
 
         auditoria.setNombreMetodo(context.getMethod().getName());
 
-        auditoria.setArgumentos(Arrays.toString(context.getParameters()));
+        //auditoria.setArgumentos(Arrays.toString(context.getParameters()));
 
         auditoria.setFechaHoraEjecucion(fechaHora);
 
