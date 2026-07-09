@@ -1,6 +1,7 @@
 package ec.com.uce.application.service;
 
-import ec.com.uce.application.service.interceptors.Auditable;
+import ec.com.uce.application.service.interceptors.Archivo;
+import ec.com.uce.application.service.interceptors.Auditar;
 import ec.com.uce.domain.model.Estudiante;
 import ec.com.uce.infraestructure.repository.EstudianteRepositoryImpl;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -10,16 +11,19 @@ import jakarta.inject.Inject;
 public class EstudianteService {
     @Inject
     EstudianteRepositoryImpl estudianteRepositoryImpl;
-    @Auditable
+    @Auditar
+    @Archivo
     public void guardar(Estudiante estudiante){
         this.estudianteRepositoryImpl.crear(estudiante);
     }
     
-    @Auditable
+    @Auditar
+    @Archivo
     public void actualizar(Estudiante estudiante){
         this.estudianteRepositoryImpl.actualizar(estudiante);
     }
-    @Auditable
+    @Auditar
+    @Archivo
     public void borrar(Integer id){
         this.estudianteRepositoryImpl.eliminar(id);
     }

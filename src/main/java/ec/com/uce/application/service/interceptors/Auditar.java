@@ -10,6 +10,6 @@ import jakarta.interceptor.InterceptorBinding;
 @InterceptorBinding
 @Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Auditable {
+public @interface Auditar {
 
 }

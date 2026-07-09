@@ -13,13 +13,13 @@ import jakarta.persistence.Table;
 public class Estudiante {
     @Id
     @SequenceGenerator(name = "seq_estudiante_generador", sequenceName = "seq_estudiante", allocationSize = 1)
-    @GeneratedValue(generator = "seq_estudiante_generador",strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "seq_estudiante_generador", strategy = GenerationType.SEQUENCE)
     @Column(name = "estu_id")
     private Integer id;
-    
+
     @Column(name = "estu_nombre")
-    private String nombre; 
-    
+    private String nombre;
+
     @Column(name = "estu_apellido")
     private String apellido;
 
@@ -47,5 +47,13 @@ public class Estudiante {
         this.apellido = apellido;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Estudiante{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                '}';
+    }
+
 }
