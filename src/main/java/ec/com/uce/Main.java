@@ -24,7 +24,7 @@ public class Main {
           
             //this.fs.guardar(f1);
 
-            //System.out.println(this.fs.buscarPorId(1).getNumero());
+            System.out.println(this.fs.buscarPorId(1).getNumero());
             return 0;
         }
 
