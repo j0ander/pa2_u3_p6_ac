@@ -15,28 +15,38 @@ public class ReporteService {
 
     @Inject
     private ReporteRepositoryImpl reporteRepositoryImpl;
-    
-    //@Tiempo
+
+    // @Tiempo
     public void guardar(Reporte reporte) {
         String nombreHilo = Thread.currentThread().getName();
         System.out.println("nombre del hilo reporteService: " + nombreHilo);
         System.out.println("ID: " + Thread.currentThread().threadId());
-        try {
-            Thread.sleep(3000);
+       /*  try {
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        } */
         this.reporteRepositoryImpl.persist(reporte);
     }
+
     @Auditar
-    public void guardarListaReportes(List<Reporte> lista){
-        for(Reporte r: lista){
+    public void guardarListaReportes(List<Reporte> lista) {
+        for (Reporte r : lista) {
             this.guardar(r);
         }
     }
+
+    @Auditar
+    public void guardarListaReportesParalelo(List<Reporte> lista) {
+        lista.parallelStream().forEach(reporte -> {
+            //Aqui programo toda la logica que quiero que se aplique a cada item de la lista
+            
+            this.guardar(reporte);
+        } );
+    }
+
     public Reporte buscarPorId(Integer id) {
         return this.reporteRepositoryImpl.findById(id);
     }
 
 }
-

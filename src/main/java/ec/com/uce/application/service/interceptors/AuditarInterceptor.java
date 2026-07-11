@@ -26,23 +26,19 @@ public class AuditarInterceptor {
 
         Object resultado = null;
 
-        long fin = System.currentTimeMillis();
+        try {
+            resultado = context.proceed();
+        } finally {
+            long fin = System.currentTimeMillis();
 
-        Auditoria auditoria = new Auditoria();
+            Auditoria auditoria = new Auditoria();
+            auditoria.setNombreMetodo(context.getMethod().getName());
+            auditoria.setFechaHoraEjecucion(fechaHora);
+            auditoria.setTiempoEjecucionMs(fin - inicio); // <--- Ahora sí tendrá los milisegundos reales
 
-        auditoria.setNombreMetodo(context.getMethod().getName());
-
-        //auditoria.setArgumentos(Arrays.toString(context.getParameters()));
-
-        auditoria.setFechaHoraEjecucion(fechaHora);
-
-        auditoria.setTiempoEjecucionMs(fin - inicio);
-
-        auditoriaService.guardar(auditoria);
-
-        resultado = context.proceed();
+            auditoriaService.guardar(auditoria);
+        }
 
         return resultado;
-
     }
 }
