@@ -27,7 +27,7 @@ public class Main {
         public int run(String... args) throws Exception {
             List<Producto> lista = new ArrayList<>();
             
-            for (int i = 1; i <= 500; i++) {
+            for (int i = 1; i <=  500000 ; i++) {
                 Producto p = new Producto();
                 
                 p.setCodigoBarras(String.format("742100%06d", i)); 
@@ -48,9 +48,8 @@ public class Main {
                 lista.add(p);
             }
             
-            System.out.println("Iniciando la insercion masiva de 500 productos");
-            this.productoService.guardarListaProductos(lista);
-            System.out.println("Insercion finalizada con exito.");
+            //this.productoService.guardarListaProductos(lista);
+            this.productoService.guardarListaProductosParalelo(lista);
            
             return 0;
         }

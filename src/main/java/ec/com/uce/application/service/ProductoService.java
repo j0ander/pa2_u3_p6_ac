@@ -15,16 +15,11 @@ public class ProductoService {
 
     @Inject
     private ProductoRepositoryImpl productoRepositoryImpl;
-    
+
     public void guardar(Producto producto) {
         String nombreHilo = Thread.currentThread().getName();
         System.out.println("nombre del hilo productoService: " + nombreHilo);
         System.out.println("ID: " + Thread.currentThread().threadId());
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         this.productoRepositoryImpl.persist(producto);
     }
 
@@ -33,6 +28,11 @@ public class ProductoService {
         for (Producto p : lista) {
             this.guardar(p);
         }
+    }
+
+    @Auditar
+    public void guardarListaProductosParalelo(List<Producto> lista) {
+        lista.parallelStream().forEach(p -> this.guardar(p));
     }
 
     public Producto buscarPorId(Integer id) {

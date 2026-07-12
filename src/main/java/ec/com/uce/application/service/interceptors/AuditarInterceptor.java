@@ -26,21 +26,19 @@ public class AuditarInterceptor {
 
         Object resultado = null;
 
-        long fin = System.currentTimeMillis();
 
-        Auditoria auditoria = new Auditoria();
+        try {
+            resultado = context.proceed();
+        } finally {
+            long fin = System.currentTimeMillis();
+            Auditoria auditoria = new Auditoria();
+            auditoria.setNombreMetodo(context.getMethod().getName());
+            //auditoria.setArgumentos(Arrays.toString(context.getParameters()));
+            auditoria.setFechaHoraEjecucion(fechaHora);
+            auditoria.setTiempoEjecucionMs(fin - inicio);
 
-        auditoria.setNombreMetodo(context.getMethod().getName());
-
-        //auditoria.setArgumentos(Arrays.toString(context.getParameters()));
-
-        auditoria.setFechaHoraEjecucion(fechaHora);
-
-        auditoria.setTiempoEjecucionMs(fin - inicio);
-
-        auditoriaService.guardar(auditoria);
-
-        resultado = context.proceed();
+            auditoriaService.guardar(auditoria);
+        }
 
         return resultado;
 
