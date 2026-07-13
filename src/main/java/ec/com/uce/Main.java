@@ -19,7 +19,7 @@ public class Main {
 
         @Override
         public int run(String... args) {
-            System.out.println("PRUEBA DE NUEVO PROYECTO");
+            //System.out.println("PRUEBA DE NUEVO PROYECTO");
             //Factura f1 = new Factura();
           
             //this.fs.guardar(f1);
